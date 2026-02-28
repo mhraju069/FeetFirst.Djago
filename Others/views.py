@@ -729,6 +729,9 @@ class stripe_webhook(views.APIView):
                 event = stripe.Webhook.construct_event(
                     payload, sig_header, settings.STRIPE_WEBHOOK_SECRET
                 )
+                import sys
+                print(f"Stripe Webhook - Event Type: {event['type']}")
+                sys.stdout.flush()
             except ValueError as e:
                 print(f"Stripe webhook - Invalid payload: {str(e)}")
                 return Response({"error": f"Invalid payload: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
